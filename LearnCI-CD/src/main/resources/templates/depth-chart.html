@@ -10,7 +10,7 @@
             var lineDiv = document.getElementById('line-chart');
 			function grabData(destination, source, limit, callback){
 				var xmlhttp = new XMLHttpRequest();
-				var URL = "http://localhost:8222/LearnCI-CD/api/depth/" + destination + "/" + source + "/" + limit;
+				var URL = "http://45.55.162.134:8222/LearnCI-CD/api/depth/" + destination + "/" + source + "/" + limit;
 				console.log(URL);
 			    xmlhttp.onreadystatechange = function(){
 			    	if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
