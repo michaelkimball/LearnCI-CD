@@ -1,0 +1,55 @@
+<!DOCTYPE HTML5>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	  <title>Depth Chart</title>
+	  <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	</head>
+	<body>
+		<div id="line-chart"></div>
+		<script th:inline="javascript">
+            var lineDiv = document.getElementById('line-chart');
+			function grabData(destination, source, limit, callback){
+				var xmlhttp = new XMLHttpRequest();
+				var URL = "http://localhost:8080/api/depth/" + destination + "/" + source + "/" + limit;
+				console.log(URL);
+			    xmlhttp.onreadystatechange = function(){
+			    	if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+			           if (xmlhttp.status == 200) {
+			        	   var depth = JSON.parse(xmlhttp.response);
+			        	   callback(depth);
+			           }
+			        }
+			    }
+			    xmlhttp.open("GET", URL, true);
+			    xmlhttp.send();
+			}
+			function drawChart(depth){
+				var traceA = {
+					x: depth.bidX,
+					y: depth.bidY,
+					type: 'scatter',
+					fill: 'tozeroy'
+				};
+				var traceB = {
+					x: depth.askX,
+					y: depth.askY,
+					type: 'scatter',
+					fill: 'tozeroy'
+				};
+				var data = [traceA, traceB];
+				var layout = {
+					title:'Depth Chart'
+          		};
+				Plotly.purge(lineDiv);
+        	    Plotly.plot(lineDiv, data, layout);
+        	    setTimeout(grabData(destination, source, limit, drawChart), 1000);
+			}
+			var destination = [[${destination}]];
+			var source = [[${source}]];
+			var limit = [[${limit}]];
+			grabData(destination, source, limit, drawChart);
+		</script>
+
+	</body>
+
+</html>
