@@ -67,20 +67,12 @@ public class Depth {
 	private void resetCombinedCoins(){
 		this.combinedCoins = 0;
 	}
-	
-//	public ArrayList<Order> getBids() {
-//		return orderBids;
-//	}
 
 	public void setBids(ArrayList<ArrayList<Object>> bids) {
 		ArrayList<Order> orderBids = convertToOrder(bids);
 		bidX = getOrderX(orderBids);
 		bidY = getOrderY(orderBids);
 	}
-
-//	public ArrayList<Order> getAsks() {
-//		return orderAsks;
-//	}
 
 	public void setAsks(ArrayList<ArrayList<Object>> asks) {
 		ArrayList<Order> orderAsks = convertToOrder(asks);
